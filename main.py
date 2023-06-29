@@ -258,7 +258,7 @@ class Recorder(object):
         #self.downsample()
         #Downsample the audio from the microphones 44100 down to 16000 that the model was trained on
         self.audio_path_out  = "rec_test2.wav"
-        self.downsampleWav(self.audio_path, self.audio_path_out, inrate=44100, outrate=16000, inchannels=1, outchannels=1):
+        self.downsampleWav(self.audio_path, self.audio_path_out, inrate=44100, outrate=16000, inchannels=1, outchannels=1)
         
       
       
