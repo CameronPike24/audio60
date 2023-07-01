@@ -263,7 +263,7 @@ class Recorder(object):
       
       
       
-    def downsampleWav(src, dst, _inrate=44100, _outrate=16000, _inchannels=1, _outchannels=1):
+    def downsampleWav(self, src, dst, _inrate=44100, _outrate=16000, _inchannels=1, _outchannels=1):
         if not os.path.exists(src):
             print('Source not found!')
             return False
