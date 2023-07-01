@@ -268,13 +268,14 @@ class Recorder(object):
       
       
     def downsampleWav(self, src, dst, inrate, outrate, inchannels, outchannels):
+        '''
         if not os.path.exists(src):
             print('Source not found!')
             return False
 
         if not os.path.exists(os.path.dirname(dst)):
             os.makedirs(os.path.dirname(dst))
-
+        '''
         try:
             s_read = wave.open(src, 'r')
             s_write = wave.open(dst, 'w')
