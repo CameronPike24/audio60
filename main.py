@@ -258,12 +258,16 @@ class Recorder(object):
         #self.downsample()
         #Downsample the audio from the microphones 44100 down to 16000 that the model was trained on
         self.audio_path_out  = "rec_test2.wav"
-        self.downsampleWav(self.audio_path, self.audio_path_out, inrate=44100, outrate=16000, inchannels=1, outchannels=1)
+        self.audio_inrate = 44100
+        self.audio_outrate = 16000
+        self.audio_inchannels = 1
+        self.audio_outchannels = 1
+        self.downsampleWav(self.audio_path, self.audio_path_out, self.audio_inrate, self.audio_outrate, self.audio_inchannels, self.audio_outchannels)
         
       
       
       
-    def downsampleWav(self, src, dst, _inrate=44100, _outrate=16000, _inchannels=1, _outchannels=1):
+    def downsampleWav(self, src, dst, inrate, outrate, inchannels, outchannels):
         if not os.path.exists(src):
             print('Source not found!')
             return False
@@ -282,15 +286,15 @@ class Recorder(object):
         data = s_read.readframes(n_frames)
 
         try:
-            converted = audioop.ratecv(data, 2, _inchannels, _inrate, _outrate, None)
-            if _outchannels == 1 & _inchannels != 1:
+            converted = audioop.ratecv(data, 2, inchannels, inrate, outrate, None)
+            if outchannels == 1 & inchannels != 1:
                 converted[0] = audioop.tomono(converted[0], 2, 1, 0)
         except:
             print('Failed to downsample wav')
             return False
 
         try:
-            s_write.setparams((_outchannels, 2, _outrate, 0, 'NONE', 'Uncompressed'))
+            s_write.setparams((outchannels, 2, outrate, 0, 'NONE', 'Uncompressed'))
             s_write.writeframes(converted[0])
         except:
             print('Failed to write wav')
