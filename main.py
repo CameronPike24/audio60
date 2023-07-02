@@ -189,6 +189,9 @@ class Recorder(object):
     def start(self):
         self.mic.start()
         Clock.schedule_interval(self.readbuffer, 1/samples_per_second)
+        print("def start(self)")
+        a = datetime.now().strftime('%d-%m-%Y %H:%M:%S') 
+        print(a)
  
     def readbuffer(self, dt):
         self.mic.poll()
@@ -215,6 +218,8 @@ class Recorder(object):
         print(self.sData)
         
         print("finished creating wav file")     
+        b = datetime.now().strftime('%d-%m-%Y %H:%M:%S') 
+        print(b)
         self.play()
         
         
