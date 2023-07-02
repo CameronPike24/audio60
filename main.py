@@ -240,14 +240,16 @@ class Recorder(object):
      
         self.sound.setDataSource(self.audio_path) 
         self.sound.prepare()
-        self.sound.setLooping(False) #you can set it to true if you want to loop
-        self.sound.start()
+        self.sound.setLooping(False) #you can set it to true if you want to loop     
+        
+        
+     
         print("start play")
-
-        e = datetime.now().strftime('%d-%m-%Y %H:%M:%S')
-       
+        e = datetime.now().strftime('%d-%m-%Y %H:%M:%S')       
         print("time of start playing audio")
         print(e)
+        self.sound.start()
+        
         # You can also use the following according to your needs
         #self.sound.pause()
         #self.sound.stop()
@@ -262,10 +264,20 @@ class Recorder(object):
         self.audio_outrate = 16000
         self.audio_inchannels = 1
         self.audio_outchannels = 1
+        
+        print("end of play")
+        f = datetime.now().strftime('%d-%m-%Y %H:%M:%S')       
+        print("end time of playing audio")
+        print(f)        
+        
+        
         self.downsample_success = self.downsampleWav(self.audio_path, self.audio_path_out, self.audio_inrate, self.audio_outrate, self.audio_inchannels, self.audio_outchannels)        
         
         #Once the recorded audio file has finished playing start the prediction step 4
         if self.downsample_success == True:
+            g = datetime.now().strftime('%d-%m-%Y %H:%M:%S')       
+            print("downsampling completed at this time")
+            print(g)         
             self.prepare_audio_frames()
         else:
             print("Could not downsample")     
@@ -281,6 +293,11 @@ class Recorder(object):
         if not os.path.exists(os.path.dirname(dst)):
             os.makedirs(os.path.dirname(dst))
         '''
+        
+        h = datetime.now().strftime('%d-%m-%Y %H:%M:%S')       
+        print("downsampling started at this time")
+        print(h)  
+        
         try:
             s_read = wave.open(src, 'r')
             s_write = wave.open(dst, 'w')
@@ -478,6 +495,10 @@ class Recorder(object):
         #print(_label_list_1[top_class_index]) 
         print("bird class")
         print(self._label_list[result_index_array])  
+        
+        j = datetime.now().strftime('%d-%m-%Y %H:%M:%S')       
+        print("End of prediction")
+        print(j)  
  
 
 
