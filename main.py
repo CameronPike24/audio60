@@ -262,8 +262,13 @@ class Recorder(object):
         self.audio_outrate = 16000
         self.audio_inchannels = 1
         self.audio_outchannels = 1
-        self.downsampleWav(self.audio_path, self.audio_path_out, self.audio_inrate, self.audio_outrate, self.audio_inchannels, self.audio_outchannels)
+        self.downsample_success = self.downsampleWav(self.audio_path, self.audio_path_out, self.audio_inrate, self.audio_outrate, self.audio_inchannels, self.audio_outchannels)        
         
+        #Once the recorded audio file has finished playing start the prediction step 4
+        if self.downsample_success == True:
+            self.prepare_audio_frames()
+        else:
+            print("Could not downsample")     
       
       
       
@@ -310,8 +315,7 @@ class Recorder(object):
 
         return True      
       
-        #Once the recorded audio file has finished playing start the prediction step 4
-        self.prepare_audio_frames()   
+       
       
         
  
