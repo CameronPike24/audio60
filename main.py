@@ -220,9 +220,31 @@ class Recorder(object):
         print("finished creating wav file")     
         b = datetime.now().strftime('%d-%m-%Y %H:%M:%S') 
         print(b)
-        self.play()
+        #No need to play the file
+        #self.play()                    
+        self.audio_path  = "rec_test1.wav"   
+             
+        #Downsample the audio from the microphones 44100 down to 16000 that the model was trained on
+        self.audio_path_out  = "rec_test2.wav"
+        self.audio_inrate = 44100
+        self.audio_outrate = 16000
+        self.audio_inchannels = 1
+        self.audio_outchannels = 1      
         
+        #Start downsample 
+        self.downsample_success = self.downsampleWav(self.audio_path, self.audio_path_out, self.audio_inrate, self.audio_outrate, self.audio_inchannels, self.audio_outchannels)        
+                
+        if self.downsample_success == True:
+            g = datetime.now().strftime('%d-%m-%Y %H:%M:%S')       
+            print("downsampling completed at this time")
+            print(g)         
+            self.prepare_audio_frames()
+        else:
+            print("Could not downsample")          
         
+
+
+    '''        
     def play(self):
         MediaPlayer = autoclass('android.media.MediaPlayer')
         AudioManager = autoclass('android.media.AudioManager')
@@ -275,17 +297,8 @@ class Recorder(object):
         print("end time of playing audio")
         print(f)        
         
-        
-        self.downsample_success = self.downsampleWav(self.audio_path, self.audio_path_out, self.audio_inrate, self.audio_outrate, self.audio_inchannels, self.audio_outchannels)        
-        
-        #Once the recorded audio file has finished playing start the prediction step 4
-        if self.downsample_success == True:
-            g = datetime.now().strftime('%d-%m-%Y %H:%M:%S')       
-            print("downsampling completed at this time")
-            print(g)         
-            self.prepare_audio_frames()
-        else:
-            print("Could not downsample")     
+    '''    
+   
       
       
       
